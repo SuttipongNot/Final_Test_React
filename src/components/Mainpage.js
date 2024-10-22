@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Container, Box, Card, CardContent } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom'; // นำเข้า useNavigate
 
 const defaultTheme = createTheme({
   palette: {
@@ -20,6 +21,7 @@ const defaultTheme = createTheme({
 
 export default function PredictApp() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const navigate = useNavigate(); // สร้างตัวแปร navigate สำหรับการนำทาง
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -30,6 +32,11 @@ export default function PredictApp() {
       setImagePreviewUrl(reader.result);
     };
     reader.readAsDataURL(file);
+  };
+
+  // ฟังก์ชันนำทางไปยังหน้า signinadmin
+  const handleLogin = () => {
+    navigate('/signinadmin'); // นำทางไปยังหน้า signinadmin
   };
 
   return (
@@ -59,6 +66,7 @@ export default function PredictApp() {
                   fontWeight: 'bold',
                   fontSize: '16px',
                 }}
+                onClick={handleLogin} // เมื่อกดปุ่มจะเรียกฟังก์ชัน handleLogin
               >
                 เข้าสู่ระบบ
               </Button>
